@@ -1,0 +1,95 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Brineeee/Kavo-GT/main/lua"))()
+
+local GreenTheme = {
+      SchemeColor = Color3.fromRGB(120, 200, 0),
+      Background = Color3.fromRGB(0, 0, 0),
+      Header = Color3.fromRGB(0, 0, 0),
+      TextColor = Color3.fromRGB(255,255,255),
+      ElementColor = Color3.fromRGB(0, 0, 0)
+} 
+
+local Window = Library.CreateLib("Green X Hub - Natural Disaster Survival", GreenTheme)
+
+local Tab2 = Window:NewTab("\\-Home-//")
+local Tab2Section = Tab2:NewSection("\\-Teleports-//")
+
+Tab2Section:NewButton("Teleport to Map", "Hello", function()
+game.Players.LocalPlayer.Character.Humanoid.RootPart.CFrame = CFrame.new(-125, 48, 10)
+end)
+
+Tab2Section:NewButton("Teleport to Lobby", "Hello", function()
+game.Players.LocalPlayer.Character.Humanoid.RootPart.CFrame = CFrame.new(-245, 180, 325)
+end)
+
+Tab2Section:NewLabel("\\-Players-//") 
+
+Tab2Section:NewButton("No Fall Damage", "Hello", function()
+game.Players.LocalPlayer.Character.FallDamageScript:Destroy()
+end)
+
+Tab2Section:NewButton("Get Ballons", "Hello", function()
+    local player = tostring(game.Players.LocalPlayer.Name)
+while true do
+if game.Workspace:FindFirstChild("GreenBalloon") then
+if not game.Workspace[player]:FindFirstChild("GreenBalloon") and not game.Players.LocalPlayer.Backpack:FindFirstChild("GreenBalloon") then
+local workspaceClone = game.Workspace.GreenBalloon:Clone()
+workspaceClone.Parent = game.Workspace[player]
+end
+else
+local balloonCheck = game.Workspace:GetDescendants()
+local balloonClone
+for i, balloon in ipairs(balloonCheck) do
+if (tostring(balloon.Name) == "GreenBalloon") then
+balloonClone = balloon:Clone()
+wait()
+end
+end
+balloonClone.Parent = game.Workspace
+local workspaceClone = game.Workspace.GreenBalloon:Clone()
+workspaceClone.Parent = game.Workspace[player]
+end
+wait()
+end
+end) 
+
+Tab2Section:NewButton("Enable Ballon Mode", "Hello", function()
+    workspace.Gravity = 60
+end)
+
+Tab2Section:NewButton("Disable Ballon Mode", "Hello", function()
+    workspace.Gravity = 200
+    end)
+
+Tab2Section:NewButton("Infinite Jump", "Hello", function()
+local InfiniteJumpEnabled = true
+game:GetService("UserInputService").JumpRequest:connect(function()
+	if InfiniteJumpEnabled then
+		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+	end
+end)
+end)
+
+Tab2Section:NewButton("Shift Lock", "Hello", function()
+loadstring(game:HttpGet('https://pastebin.com/raw/WQ9NPeDS'))();
+end)
+
+Tab2Section:NewButton("Full Brightness", "Hello", function()
+game:GetService("Lighting").Brightness = 2
+game:GetService("Lighting").ClockTime = 14
+game:GetService("Lighting").FogEnd = 100000
+game:GetService("Lighting").GlobalShadows = false
+game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+end) 
+
+Tab2Section:NewLabel("\\-Farms-//") 
+
+Tab2Section:NewButton("Enable Auto Farm", "Hello", function()
+while true do wait()
+game.Players.LocalPlayer.Character.Humanoid.RootPart.CFrame = CFrame.new(-248, 180, 290)
+end
+end)
+
+Tab2Section:NewButton("Disable Auto Farm", "Hello", function()
+    game.Players.LocalPlayer.Character:Destroy()
+game.Players.LocalPlayer.Character.Script:Destroy()
+end)
