@@ -1,0 +1,119 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Brineeee/Kavo-GT/main/lua"))()
+
+local GreenTheme = {
+      SchemeColor = Color3.fromRGB(120, 200, 0),
+      Background = Color3.fromRGB(0, 0, 0),
+      Header = Color3.fromRGB(0, 0, 0),
+      TextColor = Color3.fromRGB(255,255,255),
+      ElementColor = Color3.fromRGB(0, 0, 0)
+} 
+
+local Window = Library.CreateLib("Green X Hub - v0.1", GreenTheme)
+
+local Tab1 = Window:NewTab("Home")
+local Tab1Section = Tab1:NewSection("Credits //")
+local Tab2 = Window:NewTab("Hubs")
+local Tab2Section = Tab2:NewSection("Hubs //")
+
+Tab1Section:NewDropdown("Credits <3", "Scriptor : mech#0945 [ Discord ]", {"Scriptor : mech#0945 [ Discord ]", "UI : Kavo UI [ Edited ]", "Protected : MoonSecV2 [ Discord ]"}, function()
+    setclipboard("https://linktr.ee/brine777") 
+    setclipboard("Obfuscation -> https://discord.gg/JWHmpyKWy5") 
+end)
+
+Tab2Section:NewButton("Pet Simulator X", "PSX", function()
+
+if game.PlaceId == 6284583030 then 
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Brineeee/Green-Hub-X/main/Pet-Simulator-X",true))()
+
+else
+
+game.Players.localPlayer:Kick("Wrong game please join in Pet Simulator X.")
+
+end
+
+end) 
+
+Tab2Section:NewButton("Blox Fruit - First Sea [BETA]", "BF", function()
+
+if game.PlaceId == 2753915549 then 
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Brineeee/Green-Hub-X/main/Blox-Fruit-First-Sea",true))()
+
+else
+
+game.Players.localPlayer:Kick("Wrong game please join in Blox Fruit - First Sea.")
+
+end
+
+end)
+
+Tab2Section:NewButton("Natural Disaster Survival", "NDS", function()
+
+if game.PlaceId == 189707 then 
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Brineeee/Green-Hub-X/main/Natural-Disaster",true))()
+
+else
+
+game.Players.localPlayer:Kick("Wrong game please join in Natural Disaster Survival.")
+
+end
+
+end)
+
+Tab2Section:NewButton("Strongman Simulator", "SS - goat", function()
+
+if game.PlaceId == 6766156863 then 
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Brineeee/Green-Hub-X/main/Strongman-Simulator"))()
+
+else
+
+game.Players.localPlayer:Kick("Wrong game please join in Strongman Simulator.")
+
+end
+
+end)
+
+Tab2Section:NewButton("Find the Markers", "FTM", function()
+
+if game.PlaceId == 7896264844 then 
+
+loadstring(game:HttpGet("https://github.com/Brineeee/Green-Hub-X/blob/main/Find-the-Markers"))()
+
+else
+
+game.Players.localPlayer:Kick("Wrong game please join in Find the Makers.")
+
+end
+
+end)
+
+Tab2Section:NewButton("Legends of Speed", "LOS", function()
+
+if game.PlaceId == 3101667897 then 
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Brineeee/Green-Hub-X/main/Legends-of-Speed"))()
+
+else
+
+game.Players.localPlayer:Kick("Wrong game please join in Legends of Speed.")
+
+end
+
+end)
+
+Tab2Section:NewButton("Knife Ability Test", "KAT", function()
+
+if game.PlaceId == 621129760 then 
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Brineeee/Green-Hub-X/main/Knife-Ability-Test"))()
+
+else
+
+game.Players.localPlayer:Kick("Wrong game please join in KAT.")
+
+end
+
+end)
