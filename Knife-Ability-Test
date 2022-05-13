@@ -1,0 +1,100 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Brineeee/Kavo-GT/main/lua"))()
+
+local GreenTheme = {
+      SchemeColor = Color3.fromRGB(120, 200, 0),
+      Background = Color3.fromRGB(0, 0, 0),
+      Header = Color3.fromRGB(0, 0, 0),
+      TextColor = Color3.fromRGB(255,255,255),
+      ElementColor = Color3.fromRGB(0, 0, 0)
+} 
+
+local Window = Library.CreateLib("Green X Hub - Knife Ability Test", GreenTheme)
+
+local Tab1 = Window:NewTab("Home")
+local Tab1Section = Tab1:NewSection("OP / Farm Gems/Kills")
+
+Tab1Section:NewButton("Bring All / You must hold your knife", " ", function()
+spawn(function()
+   while wait() do 
+       pcall(function()
+ 
+   for i,v in pairs(game.Players:GetChildren()) do
+   v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-2)
+    end end) end end)
+ 
+ 
+   spawn(function()
+       while wait() do 
+           pcall(function()
+ 
+              for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+               if v.name == "Knife" then
+                   v.Parent = game.Players.LocalPlayer.Character
+               end
+              end
+        game:GetService'VirtualUser':Button1Down(Vector2.new(0.9,0.9))
+              game:GetService'VirtualUser':Button1Up(Vector2.new(0.9,0.9))
+              game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = (CFrame.new(4001,1003,144))  
+ 
+end) end end)
+end)
+
+Tab1Section:NewButton("Aimbot", " ", function()
+local Camera = game:GetService("Workspace").CurrentCamera
+local Players = game:GetService("Players")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+
+local function GetClosestPlayer()
+   local ClosestPlayer = nil
+   local FarthestDistance = math.huge
+
+   for i, v in pairs(Players.GetPlayers(Players)) do
+       if v ~= LocalPlayer and v.Character and v.Character.FindFirstChild(v.Character, "HumanoidRootPart") then
+           local DistanceFromPlayer = (LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+
+           if DistanceFromPlayer < FarthestDistance then
+               FarthestDistance = DistanceFromPlayer
+               ClosestPlayer = v
+           end
+       end
+   end
+
+   if ClosestPlayer then
+       return ClosestPlayer
+   end
+end
+
+local GameMetaTable = getrawmetatable(game)
+local OldGameMetaTableNamecall = GameMetaTable.__namecall
+setreadonly(GameMetaTable, false)
+
+GameMetaTable.__namecall = newcclosure(function(object, ...)
+   local NamecallMethod = getnamecallmethod()
+   local Arguments = {...}
+
+   if tostring(NamecallMethod) == "FindPartOnRayWithIgnoreList" then
+       local ClosestPlayer = GetClosestPlayer()
+       
+       if ClosestPlayer and ClosestPlayer.Character then
+           Arguments[1] = Ray.new(Camera.CFrame.Position, (ClosestPlayer.Character.Head.Position - Camera.CFrame.Position).Unit * (Camera.CFrame.Position - ClosestPlayer.Character.Head.Position).Magnitude)
+       end
+   end
+
+   return OldGameMetaTableNamecall(object, unpack(Arguments))
+end)
+
+setreadonly(GameMetaTable, true)
+end)
+
+Tab1Section:NewButton("ESP Player", " ", function()
+Local = game:GetService('Players').LocalPlayer
+Char  = Local.Character
+touched,tpdback = false, false
+Local.CharacterAdded:connect(function(char)
+    if script.Disabled ~= true then
+        wait(.25)
+        loc = Char.HumanoidRootPart.Position
+        Char:MoveTo(box.Position + Vector3.new(0,.5,0))
+    end
+end)
+end)
