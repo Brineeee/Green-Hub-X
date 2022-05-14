@@ -1,6 +1,6 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Brineeee/Kavo-GT/main/lua"))()
 
-local GreenTheme = {
+local o = {
       SchemeColor = Color3.fromRGB(120, 200, 0),
       Background = Color3.fromRGB(0, 0, 0),
       Header = Color3.fromRGB(0, 0, 0),
@@ -8,18 +8,18 @@ local GreenTheme = {
       ElementColor = Color3.fromRGB(0, 0, 0)
 } 
 
-local Window = Library.CreateLib("Green X Hub - (Pet Simulator X)", "GreenTheme")
+local Window = Library.CreateLib("Green X Hub - (Pet Simulator X)", "Serpent")
 
 -------------------------------------------------------------------------------------------------
 
 local Tab1 = Window:NewTab("Home")
 local Tab1Section = Tab1:NewSection("Farms //")
 
+local Tab2 = Window:NewTab("Eggs")
+local Tab2Section = Tab2:NewSection("Animations //")
+
 local Tab9 = Window:NewTab("Remote")
 local Tab9Section = Tab9:NewSection("Remotes //")
-
-local Tab2 = Window:NewTab("Eggs")
-local Tab93Section = Tab93:NewSection("Animations //")
 
 local Tab3 = Window:NewTab("Miscs")
 local Tab3Section = Tab3:NewSection("Boost //")
@@ -149,7 +149,7 @@ end)
 -------------------------------------------------------------------------------------------------
 --page2
 
-Tab93Section:NewButton("Remove Egg Animation", "i", function()
+Tab2Section:NewButton("Remove Egg Animation", "i", function()
 _G.pettable = {}
 local mod = getsenv(game:GetService("Players").LocalPlayer.PlayerScripts.Scripts.Game["Open Eggs"])
 local f
