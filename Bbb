@@ -1,0 +1,1016 @@
+local library = {}
+
+for i, v in pairs(game.coregui:getdescendants()) do
+	if v.name == "shadow3" then
+		v.parent.parent:destroy()
+	end
+end
+
+local function getxy(obj)
+	local mouse = game:getservice("players").localplayer:getmouse()
+	local max, may = obj.absolutesize.x,obj.absolutesize.y
+	local px, py = math.clamp(mouse.x - obj.absoluteposition.x, 0, max), math.clamp(mouse.y - obj.absoluteposition.y, 0, may)
+	return px/max, py/may
+end
+
+function ripple(obj)
+	local mouse = game:getservice("players").localplayer:getmouse()
+	local tweenservice = game:getservice("tweenservice")
+	spawn(function()
+		local px, py = getxy(obj)
+		local circle = instance.new("imagelabel")
+		circle.name = "circle"
+		circle.parent = obj
+		circle.backgroundcolor3 = color3.fromrgb(255, 255, 255)
+		circle.backgroundtransparency = 1.000
+		circle.zindex = 10
+		circle.image = "rbxassetid://266543268"
+		circle.imagecolor3 = color3.fromrgb(210,210,210)
+		circle.imagetransparency = 0.6
+		local newx, newy = mouse.x - circle.absoluteposition.x, mouse.y - circle.absoluteposition.y
+		circle.position = udim2.new(0, newx, 0, newy)
+		local size = obj.absolutesize.x
+		tweenservice:create(circle, tweeninfo.new(1), {position = udim2.fromscale(px,py) - udim2.fromoffset(size/2,size/2), imagetransparency = 1, size = udim2.fromoffset(size,size)}):play()
+		spawn(function()
+			wait(1.2)
+			circle:destroy()
+		end)
+	end)
+end
+
+function library:window(te)
+	local shuilibrary = instance.new("screengui")
+	local main = instance.new("frame")
+	local topbar = instance.new("frame")
+	local uicorner = instance.new("uicorner")
+	local finish = instance.new("frame")
+	local cover = instance.new("frame")
+	local clear = instance.new("imagebutton")
+	local tit = instance.new("textlabel")
+	local uicorner_2 = instance.new("uicorner")
+	local tabs = instance.new("frame")
+	local uicorner_3 = instance.new("uicorner")
+	local finish_2 = instance.new("frame")
+	local finish2 = instance.new("frame")
+	local maintabs = instance.new("scrollingframe")
+	local tabs_2 = instance.new("folder")
+	local uilistlayout = instance.new("uilistlayout")
+	local shadow1 = instance.new("imagelabel")
+	local shadow2 = instance.new("imagelabel")
+	local shadow3 = instance.new("imagelabel")
+	local frames = instance.new("folder")
+	local windowhandler = {}
+
+	maintabs.canvassize = udim2.new(0, 0, 10, 0)
+
+	makedraggable(topbar, main)
+
+	shuilibrary.name = tostring(math.random())
+	shuilibrary.parent = game.coregui
+
+	main.name = "main"
+	main.parent = shuilibrary
+	main.backgroundcolor3 = color3.fromrgb(24, 24, 24)
+	main.bordersizepixel = 0
+	main.position = udim2.new(0.379820347, 0, 0.321510285, 0)
+	main.size = udim2.new(0, 455, 0, 312)
+
+	topbar.name = "topbar"
+	topbar.parent = main
+	topbar.backgroundcolor3 = color3.fromrgb(30, 30, 30)
+	topbar.bordersizepixel = 0
+	topbar.position = udim2.new(0.00179215311, 0, 0, 0)
+	topbar.size = udim2.new(0, 454, 0, 36)
+	topbar.zindex = 2
+
+	uicorner.parent = topbar
+
+	finish.name = "finish"
+	finish.parent = topbar
+	finish.backgroundcolor3 = color3.fromrgb(30, 30, 30)
+	finish.bordersizepixel = 0
+	finish.position = udim2.new(0, 0, 0.79411763, 0)
+	finish.size = udim2.new(0, 454, 0, 7)
+
+	cover.name = "cover"
+	cover.parent = topbar
+	cover.backgroundcolor3 = color3.fromrgb(50, 50, 50)
+	cover.bordersizepixel = 0
+	cover.position = udim2.new(0, 0, 1, 0)
+	cover.size = udim2.new(1.0004065, 0, 0, 1)
+	cover.zindex = 3
+
+	clear.name = "clear"
+	clear.parent = topbar
+	clear.backgroundtransparency = 1.000
+	clear.layoutorder = 3
+	clear.position = udim2.new(0.940999985, 0, 0.205882356, 0)
+	clear.size = udim2.new(0, 21, 0, 21)
+	clear.zindex = 2
+	clear.image = "rbxassetid://3926305904"
+	clear.imagerectoffset = vector2.new(924, 724)
+	clear.imagerectsize = vector2.new(36, 36)
+
+	clear.mousebutton1click:connect(function()
+		shuilibrary:destroy()
+	end)
+
+	tit.name = "tit"
+	tit.parent = topbar
+	tit.backgroundcolor3 = color3.fromrgb(255, 255, 255)
+	tit.backgroundtransparency = 1.000
+	tit.bordercolor3 = color3.fromrgb(27, 42, 53)
+	tit.position = udim2.new(0.0306002107, 0, 0.205882356, 0)
+	tit.size = udim2.new(0, 110, 0, 21)
+	tit.zindex = 3
+	tit.font = enum.font.gotham
+	tit.text = te
+	tit.textcolor3 = color3.fromrgb(236, 236, 236)
+	tit.textsize = 16.000
+
+	uicorner_2.parent = main
+
+	tabs.name = "tabs"
+	tabs.parent = main
+	tabs.backgroundcolor3 = color3.fromrgb(34, 34, 34)
+	tabs.bordersizepixel = 0
+	tabs.position = udim2.new(0.00217727828, 0, 0.118589744, 0)
+	tabs.size = udim2.new(0, 109, 0, 274)
+	tabs.zindex = 2
+
+	uicorner_3.parent = tabs
+
+	finish_2.name = "finish"
+	finish_2.parent = tabs
+	finish_2.backgroundcolor3 = color3.fromrgb(34, 34, 34)
+	finish_2.bordersizepixel = 0
+	finish_2.position = udim2.new(-0.0109185735, 0, -0.0223880596, 0)
+	finish_2.size = udim2.new(0, 110, 0, 11)
+
+	finish2.name = "finish2"
+	finish2.parent = tabs
+	finish2.backgroundcolor3 = color3.fromrgb(34, 34, 34)
+	finish2.bordersizepixel = 0
+	finish2.position = udim2.new(0.863059521, 0, 0.970650494, 0)
+	finish2.size = udim2.new(0, 15, 0, 5)
+
+	maintabs.name = "maintabs"
+	maintabs.parent = tabs
+	maintabs.active = true
+	maintabs.backgroundcolor3 = color3.fromrgb(255, 255, 255)
+	maintabs.backgroundtransparency = 1.000
+	maintabs.position = udim2.new(0, 0, 0.0401459858, 0)
+	maintabs.size = udim2.new(0, 109, 0, 259)
+	maintabs.zindex = 5
+	maintabs.scrollbarthickness = 0
+
+	tabs_2.name = "tabs"
+	tabs_2.parent = maintabs
+
+	uilistlayout.parent = tabs_2
+	uilistlayout.horizontalalignment = enum.horizontalalignment.center
+	uilistlayout.sortorder = enum.sortorder.layoutorder
+	uilistlayout.padding = udim.new(0, 4)
+
+	shadow1.name = "shadow1"
+	shadow1.parent = main
+	shadow1.anchorpoint = vector2.new(0.5, 0.5)
+	shadow1.backgroundtransparency = 1.000
+	shadow1.position = udim2.new(0.5, 0, 0.5, 3)
+	shadow1.size = udim2.new(1, 5, 1, 5)
+	shadow1.zindex = 0
+	shadow1.image = "rbxassetid://1316045217"
+	shadow1.imagecolor3 = color3.fromrgb(0, 0, 0)
+	shadow1.imagetransparency = 0.800
+	shadow1.scaletype = enum.scaletype.slice
+	shadow1.slicecenter = rect.new(10, 10, 118, 118)
+
+	shadow2.name = "shadow2"
+	shadow2.parent = main
+	shadow2.anchorpoint = vector2.new(0.5, 0.5)
+	shadow2.backgroundtransparency = 1.000
+	shadow2.position = udim2.new(0.5, 0, 0.5, 1)
+	shadow2.size = udim2.new(1, 18, 1, 18)
+	shadow2.zindex = 0
+	shadow2.image = "rbxassetid://1316045217"
+	shadow2.imagecolor3 = color3.fromrgb(0, 0, 0)
+	shadow2.imagetransparency = 0.880
+	shadow2.scaletype = enum.scaletype.slice
+	shadow2.slicecenter = rect.new(10, 10, 118, 118)
+
+	shadow3.name = "shadow3"
+	shadow3.parent = main
+	shadow3.anchorpoint = vector2.new(0.5, 0.5)
+	shadow3.backgroundtransparency = 1.000
+	shadow3.position = udim2.new(0.5, 0, 0.5, 6)
+	shadow3.size = udim2.new(1, 10, 1, 10)
+	shadow3.zindex = 0
+	shadow3.image = "rbxassetid://1316045217"
+	shadow3.imagecolor3 = color3.fromrgb(0, 0, 0)
+	shadow3.imagetransparency = 0.860
+	shadow3.scaletype = enum.scaletype.slice
+	shadow3.slicecenter = rect.new(10, 10, 118, 118)
+
+	frames.name = "frames"
+	frames.parent = main
+
+local function DGZPFEN_fake_script() -- MainFrame.LocalScript 
+	local script = Instance.new('LocalScript', main)
+
+	local players = game:service('Players');
+	local player = players.LocalPlayer;
+	local mouse = player:GetMouse();
+	local run = game:service('RunService');
+	local stepped = run.Stepped;
+	draggable = function(obj)
+		spawn(function()
+			obj.Active = true;
+			local minitial;
+			local initial;
+			local isdragging;
+			obj.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+					isdragging = true;
+					minitial = input.Position;
+					initial = obj.Position;
+					local con;
+					con = stepped:Connect(function()
+						if isdragging then
+							local delta = Vector3.new(mouse.X, mouse.Y, 0) - minitial;
+							obj.Position = UDim2.new(initial.X.Scale, initial.X.Offset + delta.X, initial.Y.Scale, initial.Y.Offset + delta.Y);
+						else
+							con:Disconnect();
+						end;
+					end);
+					input.Changed:Connect(function()
+						if input.UserInputState == Enum.UserInputState.End then
+							isdragging = false;
+						end;
+					end);
+				end;
+			end);
+		end)
+	end;
+	
+	draggable(script.Parent)
+end
+coroutine.wrap(DGZPFEN_fake_script)()
+
+	local function selectfirsttab()
+		local firstthing = frames:getchildren()[1]
+		local firstname = firstthing.name:gsub("_frame", "")
+		local buttontoselect = tabs_2:waitforchild(firstname .. "_button")
+		local frametoselect = frames:waitforchild(firstname .. "_frame")
+		for i, v in pairs(tabs_2:getchildren()) do
+			if v:isa("textbutton") then
+				if v.backgroundcolor3 == color3.fromrgb(45, 45, 45) then
+					game:getservice("tweenservice"):create(v, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(33, 33, 33)}):play()
+				end
+			end
+		end
+		for a, b in pairs(frames:getchildren()) do
+			if b:isa("scrollingframe") then
+				b.visible = false
+			end
+		end
+		frametoselect.visible = true
+		game:getservice("tweenservice"):create(buttontoselect, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(45, 45, 45)}):play()
+	end
+
+	function windowhandler:tab(name)
+		local scrollingframe = instance.new("scrollingframe")
+		local elements = instance.new("folder")
+		local uilistlayout2 = instance.new("uilistlayout")
+		local textbutton = instance.new("textbutton")
+		local uicorner = instance.new("uicorner")
+		local uitextsizeconstraint = instance.new("uitextsizeconstraint")
+		local tabhandler = {}
+
+		scrollingframe.canvassize = udim2.new(0, 0, 10, 0)
+
+		scrollingframe.parent = frames
+		scrollingframe.active = true
+		scrollingframe.backgroundcolor3 = color3.fromrgb(255, 255, 255)
+		scrollingframe.backgroundtransparency = 1.000
+		scrollingframe.position = udim2.new(0.241899222, 0, 0.159825832, 0)
+		scrollingframe.size = udim2.new(0, 338, 0, 258)
+		scrollingframe.zindex = 7
+		scrollingframe.scrollbarthickness = 0
+		scrollingframe.visible = false
+		scrollingframe.name = name .. "_frame"
+
+		elements.name = "elements"
+		elements.parent = scrollingframe
+
+		uilistlayout2.parent = elements
+		uilistlayout2.horizontalalignment = enum.horizontalalignment.center
+		uilistlayout2.sortorder = enum.sortorder.layoutorder
+		uilistlayout2.padding = udim.new(0, 4)
+
+		textbutton.parent = tabs_2
+		textbutton.backgroundcolor3 = color3.fromrgb(33, 33, 33)
+		textbutton.position = udim2.new(-0.417431206, 0, 0, 0)
+		textbutton.size = udim2.new(0, 89, 0, 27)
+		textbutton.zindex = 7
+		textbutton.autobuttoncolor = false
+		textbutton.font = enum.font.gotham
+		textbutton.text = name
+		textbutton.textcolor3 = color3.fromrgb(236, 236, 236)
+		textbutton.textscaled = true
+		textbutton.textsize = 14.000
+		textbutton.textwrapped = true
+		textbutton.name = name .. "_button"
+
+		uicorner.cornerradius = udim.new(0, 5)
+		uicorner.parent = textbutton
+
+		uitextsizeconstraint.parent = textbutton
+		uitextsizeconstraint.maxtextsize = 14
+		uitextsizeconstraint.mintextsize = 14
+
+		textbutton.mouseenter:connect(function()
+			if not scrollingframe.visible then
+				game:getservice("tweenservice"):create(textbutton, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(40, 40, 40)}):play()
+			end
+		end)
+
+		textbutton.mouseleave:connect(function()
+			if not scrollingframe.visible then
+				game:getservice("tweenservice"):create(textbutton, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(33, 33, 33)}):play()
+			end
+		end)
+
+		textbutton.mousebutton1click:connect(function()
+			for i, v in pairs(tabs_2:getchildren()) do
+				if v:isa("textbutton") then
+					if v.backgroundcolor3 == color3.fromrgb(45, 45, 45) and v ~= textbutton then
+						game:getservice("tweenservice"):create(v, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(33, 33, 33)}):play()
+					end
+				end
+			end
+			for a, b in pairs(frames:getchildren()) do
+				if b:isa("scrollingframe") then
+					if b ~= scrollingframe then
+						b.visible = false
+					end
+				end
+			end
+			scrollingframe.visible = true
+			game:getservice("tweenservice"):create(textbutton, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(45, 45, 45)}):play()
+		end)
+
+		function tabhandler:button(text, callback)
+			local textbutton = instance.new("textbutton")
+			local uicorner = instance.new("uicorner")
+			local uitextsizeconstraint = instance.new("uitextsizeconstraint")
+
+			textbutton.parent = elements
+			textbutton.backgroundcolor3 = color3.fromrgb(37, 37, 37)
+			textbutton.position = udim2.new(-0.133136094, 0, 0, 0)
+			textbutton.size = udim2.new(0, 314, 0, 40)
+			textbutton.autobuttoncolor = false
+			textbutton.font = enum.font.gotham
+			textbutton.textcolor3 = color3.fromrgb(236, 236, 236)
+			textbutton.textscaled = true
+			textbutton.textsize = 14.000
+			textbutton.textwrapped = true
+			textbutton.text = tostring(text)
+			textbutton.clipsdescendants = true
+
+			uicorner.cornerradius = udim.new(0, 5)
+			uicorner.parent = textbutton
+
+			uitextsizeconstraint.parent = textbutton
+			uitextsizeconstraint.maxtextsize = 14
+			uitextsizeconstraint.mintextsize = 14
+
+			textbutton.mouseenter:connect(function()
+				game:getservice("tweenservice"):create(textbutton, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(42, 42, 42)}):play()
+			end)
+	
+			textbutton.mouseleave:connect(function()
+				game:getservice("tweenservice"):create(textbutton, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(37, 37, 37)}):play()
+			end)
+
+			textbutton.mousebutton1click:connect(function()
+				ripple(textbutton)
+				callback()
+			end)
+		end
+
+		function tabhandler:bind(text, preset, callback)
+			local binding = false
+			local key = preset.name
+			local keybind = instance.new("textbutton")
+			local uicorner = instance.new("uicorner")
+			local title = instance.new("textlabel")
+			local uitextsizeconstraint = instance.new("uitextsizeconstraint")
+			local currentkey = instance.new("textlabel")
+			local uicorner_2 = instance.new("uicorner")
+			local uitextsizeconstraint_2 = instance.new("uitextsizeconstraint")
+
+			keybind.name = "keybind"
+			keybind.parent = elements
+			keybind.backgroundcolor3 = color3.fromrgb(37, 37, 37)
+			keybind.position = udim2.new(-0.133136094, 0, 0, 0)
+			keybind.size = udim2.new(0, 314, 0, 40)
+			keybind.autobuttoncolor = false
+			keybind.font = enum.font.gotham
+			keybind.text = ""
+			keybind.textcolor3 = color3.fromrgb(236, 236, 236)
+			keybind.textscaled = true
+			keybind.textsize = 14.000
+			keybind.textwrapped = true
+			keybind.clipsdescendants = true
+
+			uicorner.cornerradius = udim.new(0, 5)
+			uicorner.parent = keybind
+
+			title.name = "title"
+			title.parent = keybind
+			title.backgroundcolor3 = color3.fromrgb(255, 255, 255)
+			title.backgroundtransparency = 1.000
+			title.position = udim2.new(0.0382165611, 0, 0.075000003, 0)
+			title.size = udim2.new(0, 166, 0, 33)
+			title.font = enum.font.gotham
+			title.text = tostring(text)
+			title.textcolor3 = color3.fromrgb(236, 236, 236)
+			title.textscaled = true
+			title.textsize = 14.000
+			title.textwrapped = true
+			title.textxalignment = enum.textxalignment.left
+
+			uitextsizeconstraint.parent = title
+			uitextsizeconstraint.maxtextsize = 14
+			uitextsizeconstraint.mintextsize = 14
+
+			currentkey.name = "currentkey"
+			currentkey.parent = keybind
+			currentkey.backgroundcolor3 = color3.fromrgb(45, 45, 45)
+			currentkey.position = udim2.new(0.827499986, 0, 0.125, 0)
+			currentkey.size = udim2.new(0, 48, 0, 30)
+			currentkey.font = enum.font.gotham
+			currentkey.text = key or ". . ."
+			currentkey.textcolor3 = color3.fromrgb(236, 236, 236)
+			currentkey.textscaled = true
+			currentkey.textsize = 14.000
+			currentkey.textwrapped = true
+			currentkey.zindex = 9
+
+			uicorner_2.cornerradius = udim.new(0, 5)
+			uicorner_2.parent = currentkey
+
+			uitextsizeconstraint_2.parent = currentkey
+			uitextsizeconstraint_2.maxtextsize = 14
+			uitextsizeconstraint_2.mintextsize = 14
+
+			keybind.mouseenter:connect(function()
+				game:getservice("tweenservice"):create(keybind, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(42, 42, 42)}):play()
+			end)
+	
+			keybind.mouseleave:connect(function()
+				game:getservice("tweenservice"):create(keybind, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(37, 37, 37)}):play()
+			end)
+
+			keybind.mousebutton1click:connect(function()
+				ripple(keybind)
+				currentkey.text = ". . ."
+				binding = true
+				local a, b = game:getservice('userinputservice').inputbegan:wait()
+				if a.keycode.name ~= "unknown" then
+                    currentkey.text = a.keycode.name
+                    key = a.keycode.name
+					wait(0.1)
+					binding = false
+                end
+			end)
+
+			game:getservice("userinputservice").inputbegan:connect(function(current, ok) 
+                if not ok and not binding then 
+                    if current.keycode.name == key then 
+                        callback(key)
+                    end
+                end
+            end)
+		end
+
+		function tabhandler:toggle(text, default, callback)
+			callback = callback or function() end
+			local istoggled = default
+			local toggle = instance.new("textbutton")
+			local uicorner = instance.new("uicorner")
+			local title = instance.new("textlabel")
+			local uitextsizeconstraint = instance.new("uitextsizeconstraint")
+			local enabled = instance.new("frame")
+			local uicorner_2 = instance.new("uicorner")
+			local check = instance.new("imagebutton")
+
+			toggle.name = "toggle"
+			toggle.parent = elements
+			toggle.backgroundcolor3 = color3.fromrgb(37, 37, 37)
+			toggle.position = udim2.new(-0.133136094, 0, 0, 0)
+			toggle.size = udim2.new(0, 314, 0, 40)
+			toggle.autobuttoncolor = false
+			toggle.font = enum.font.gotham
+			toggle.text = ""
+			toggle.textcolor3 = color3.fromrgb(236, 236, 236)
+			toggle.textscaled = true
+			toggle.textsize = 14.000
+			toggle.textwrapped = true
+			toggle.clipsdescendants = true
+
+			uicorner.cornerradius = udim.new(0, 5)
+			uicorner.parent = toggle
+
+			title.name = "title"
+			title.parent = toggle
+			title.backgroundcolor3 = color3.fromrgb(255, 255, 255)
+			title.backgroundtransparency = 1.000
+			title.position = udim2.new(0.0382165611, 0, 0.075000003, 0)
+			title.size = udim2.new(0, 166, 0, 33)
+			title.font = enum.font.gotham
+			title.text = tostring(text)
+			title.textcolor3 = color3.fromrgb(236, 236, 236)
+			title.textscaled = true
+			title.textsize = 14.000
+			title.textwrapped = true
+			title.textxalignment = enum.textxalignment.left
+
+			uitextsizeconstraint.parent = title
+			uitextsizeconstraint.maxtextsize = 14
+			uitextsizeconstraint.mintextsize = 14
+
+			enabled.name = "enabled"
+			enabled.parent = toggle
+			enabled.backgroundcolor3 = color3.fromrgb(0, 255, 127)
+			enabled.position = udim2.new(0.883000016, 0, 0.200000003, 0)
+			enabled.size = udim2.new(0, 29, 0, 26)
+			if not istoggled then
+				enabled.backgroundcolor3 = color3.fromrgb(45, 45, 45)
+			else
+				enabled.backgroundcolor3 = color3.fromrgb(0, 255, 127)
+			end
+
+			uicorner_2.cornerradius = udim.new(0, 5)
+			uicorner_2.parent = enabled
+
+			check.name = "check"
+			check.parent = enabled
+			check.anchorpoint = vector2.new(0.5, 0.5)
+			check.backgroundtransparency = 1.000
+			check.position = udim2.new(0.5, 0, 0.5, 0)
+			check.size = udim2.new(0, 23, 0, 23)
+			check.zindex = 2
+			check.image = "rbxassetid://3926305904"
+			check.imagecolor3 = color3.fromrgb(35, 35, 35)
+			check.imagerectoffset = vector2.new(312, 4)
+			check.imagerectsize = vector2.new(24, 24)
+			if istoggled then
+				check.imagetransparency = 0
+				check.size = udim2.new(0, 23, 0, 23)
+			else
+				check.imagetransparency = 1
+				check.size = udim2.new(0, 0, 0, 0)
+			end
+
+			toggle.mouseenter:connect(function()
+				game:getservice("tweenservice"):create(toggle, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(42, 42, 42)}):play()
+			end)
+	
+			toggle.mouseleave:connect(function()
+				game:getservice("tweenservice"):create(toggle, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(37, 37, 37)}):play()
+			end)
+
+			toggle.mousebutton1click:connect(function()
+				istoggled = not istoggled
+				callback(istoggled)
+				pcall(ripple, toggle)
+				if istoggled then
+					spawn(function()
+						game:getservice("tweenservice"):create(enabled, tweeninfo.new(0.3), {backgroundcolor3 = color3.fromrgb(0, 255, 127)}):play()
+						game:getservice("tweenservice"):create(check, tweeninfo.new(0.3), {imagetransparency = 0}):play()
+						game:getservice("tweenservice"):create(check, tweeninfo.new(0.5), {size = udim2.new(0, 23, 0, 23)}):play()
+					end)
+				else
+					spawn(function()
+						game:getservice("tweenservice"):create(enabled, tweeninfo.new(0.3), {backgroundcolor3 = color3.fromrgb(45, 45, 45)}):play()
+						game:getservice("tweenservice"):create(check, tweeninfo.new(0.5), {size = udim2.new(0, 0, 0, 0)}):play()
+					end)
+				end
+			end)
+		end
+
+		function tabhandler:dropdown(text, list, callback)
+			local droptog = false
+            local framesize = 0
+            local itemcount = 0
+			local dropdown = instance.new("textbutton")
+			local uicorner = instance.new("uicorner")
+			local title = instance.new("textlabel")
+			local uitextsizeconstraint = instance.new("uitextsizeconstraint")
+			local arrow = instance.new("frame")
+			local uicorner_2 = instance.new("uicorner")
+			local chevron_right = instance.new("imagebutton")
+			local itemholder = instance.new("scrollingframe")
+			local uilistlayout = instance.new("uilistlayout")
+			itemholder.canvassize = udim2.new(0, 0, 10, 0)
+
+			dropdown.name = "dropdown"
+			dropdown.parent = elements
+			dropdown.backgroundcolor3 = color3.fromrgb(37, 37, 37)
+			dropdown.position = udim2.new(-0.133136094, 0, 0, 0)
+			dropdown.size = udim2.new(0, 314, 0, 40)
+			dropdown.autobuttoncolor = false
+			dropdown.font = enum.font.gotham
+			dropdown.text = ""
+			dropdown.textcolor3 = color3.fromrgb(236, 236, 236)
+			dropdown.textscaled = true
+			dropdown.textsize = 14.000
+			dropdown.textwrapped = true
+			dropdown.autobuttoncolor = false
+			dropdown.clipsdescendants = true
+
+			uicorner.cornerradius = udim.new(0, 5)
+			uicorner.parent = dropdown
+
+			title.name = "title"
+			title.parent = dropdown
+			title.backgroundcolor3 = color3.fromrgb(255, 255, 255)
+			title.backgroundtransparency = 1.000
+			title.position = udim2.new(0.0382165611, 0, 0.075000003, 0)
+			title.size = udim2.new(0, 166, 0, 33)
+			title.font = enum.font.gotham
+			title.text = tostring(text)
+			title.textcolor3 = color3.fromrgb(236, 236, 236)
+			title.textscaled = true
+			title.textsize = 14.000
+			title.textwrapped = true
+			title.textxalignment = enum.textxalignment.left
+
+			uitextsizeconstraint.parent = title
+			uitextsizeconstraint.maxtextsize = 14
+			uitextsizeconstraint.mintextsize = 14
+
+			arrow.name = "arrow"
+			arrow.parent = dropdown
+			arrow.backgroundcolor3 = color3.fromrgb(45, 45, 45)
+			arrow.position = udim2.new(0.883000016, 0, 0.200000003, 0)
+			arrow.size = udim2.new(0, 29, 0, 26)
+
+			uicorner_2.cornerradius = udim.new(0, 5)
+			uicorner_2.parent = arrow
+
+			chevron_right.name = "chevron_right"
+			chevron_right.parent = arrow
+			chevron_right.anchorpoint = vector2.new(0.5, 0.5)
+			chevron_right.backgroundtransparency = 1.000
+			chevron_right.position = udim2.new(0.5, 0, 0.5, 0)
+			chevron_right.rotation = -90.000
+			chevron_right.size = udim2.new(0, 27, 0, 27)
+			chevron_right.zindex = 2
+			chevron_right.image = "rbxassetid://3926305904"
+			chevron_right.imagecolor3 = color3.fromrgb(236, 236, 236)
+			chevron_right.imagerectoffset = vector2.new(924, 884)
+			chevron_right.imagerectsize = vector2.new(36, 36)
+
+			itemholder.name = "itemholder"
+			itemholder.parent = elements
+			itemholder.active = true
+			itemholder.backgroundcolor3 = color3.fromrgb(37, 37, 37)
+			itemholder.bordersizepixel = 0
+			itemholder.position = udim2.new(0, 0, 1.10000002, 0)
+			itemholder.size = udim2.new(0, 312, 0, 0)
+			itemholder.scrollbarthickness = 0
+			itemholder.visible = false
+
+			uilistlayout.parent = itemholder
+			uilistlayout.horizontalalignment = enum.horizontalalignment.center
+			uilistlayout.sortorder = enum.sortorder.layoutorder
+			uilistlayout.padding = udim.new(0, 4)
+			
+			dropdown.mouseenter:connect(function()
+				game:getservice("tweenservice"):create(dropdown, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(42, 42, 42)}):play()
+			end)
+	
+			dropdown.mouseleave:connect(function()
+				game:getservice("tweenservice"):create(dropdown, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(37, 37, 37)}):play()
+			end)
+			for i, v in next, list do
+				itemcount += 1
+				if itemcount <= 3 then
+					framesize += 33
+				end
+
+				local item = instance.new("textbutton")
+				local uitextsizeconstraintd = instance.new("uitextsizeconstraint")
+				local uicorners = instance.new("uicorner")
+
+				item.name = "item"
+				item.parent = itemholder
+				item.backgroundcolor3 = color3.fromrgb(34, 34, 34)
+				item.position = udim2.new(0.0192307699, 0, 0, 0)
+				item.size = udim2.new(0, 292, 0, 33)
+				item.font = enum.font.gotham
+				item.text = v
+				item.textcolor3 = color3.fromrgb(236, 236, 236)
+				item.textscaled = true
+				item.textsize = 14.000
+				item.textwrapped = true
+				item.autobuttoncolor = false
+
+				uitextsizeconstraintd.parent = item
+				uitextsizeconstraintd.maxtextsize = 14
+				uitextsizeconstraintd.mintextsize = 14
+
+				uicorners.cornerradius = udim.new(0, 5)
+				uicorners.parent = item
+
+				item.mouseenter:connect(function()
+					game:getservice("tweenservice"):create(item, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(40, 40, 40)}):play()
+				end)
+		
+				item.mouseleave:connect(function()
+					game:getservice("tweenservice"):create(item, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(33, 33, 33)}):play()
+				end)
+
+				item.mousebutton1click:connect(function()
+					droptog = not droptog
+					title.text = text .. " - " .. v
+					pcall(callback, v)
+					scrollingframe.scrollingenabled = true
+					game:getservice("tweenservice"):create(chevron_right, tweeninfo.new(0.2), {rotation = -90}):play()
+					game:getservice("tweenservice"):create(itemholder, tweeninfo.new(0.3), {size = udim2.new(0, 312, 0, 0)}):play()
+					if droptog == true then
+						itemholder.visible = true
+					else
+						wait(0.3)
+						itemholder.visible = false
+					end
+				end)
+			end
+
+			dropdown.mousebutton1click:connect(function()
+				ripple(dropdown)
+				if droptog == false then
+					scrollingframe.scrollingenabled = false
+					game:getservice("tweenservice"):create(chevron_right, tweeninfo.new(0.2), {rotation = 90}):play()
+					game:getservice("tweenservice"):create(itemholder, tweeninfo.new(0.3), {size = udim2.new(0, 312, 0, framesize)}):play()
+				else
+					scrollingframe.scrollingenabled = true
+					game:getservice("tweenservice"):create(chevron_right, tweeninfo.new(0.2), {rotation = -90}):play()
+					game:getservice("tweenservice"):create(itemholder, tweeninfo.new(0.3), {size = udim2.new(0, 312, 0, 0)}):play()
+				end
+				droptog = not droptog
+				if droptog == true then
+					itemholder.visible = true
+				else
+					wait(0.3)
+					itemholder.visible = false
+				end
+			end)
+
+		end
+
+		function tabhandler:slider(text, min, max, inc, callback)
+			local dragging = false
+			local slider = instance.new("frame")
+			local title345 = instance.new("textlabel")
+			local uitextsizeconstraint = instance.new("uitextsizeconstraint")
+			local currentvalue = instance.new("textlabel")
+			local uitextsizeconstraint_2 = instance.new("uitextsizeconstraint")
+			local bar = instance.new("frame")
+			local uicorner = instance.new("uicorner")
+			local slide = instance.new("frame")
+			local uicorner_2 = instance.new("uicorner")
+			local uicorner_3 = instance.new("uicorner")
+
+			slider.name = "slider"
+			slider.parent = elements
+			slider.backgroundcolor3 = color3.fromrgb(37, 37, 37)
+			slider.size = udim2.new(0, 314, 0, 40)
+
+			title345.name = "title"
+			title345.parent = slider
+			title345.backgroundcolor3 = color3.fromrgb(255, 255, 255)
+			title345.backgroundtransparency = 1.000
+			title345.position = udim2.new(0.0382165611, 0, 0.125, 0)
+			title345.size = udim2.new(0, 109, 0, 20)
+			title345.font = enum.font.sourcesans
+			title345.text = tostring(text)
+			title345.textcolor3 = color3.fromrgb(236, 236, 236)
+			title345.textscaled = true
+			title345.textsize = 14.000
+			title345.textwrapped = true
+			title345.textxalignment = enum.textxalignment.left
+
+			uitextsizeconstraint.parent = title345
+			uitextsizeconstraint.maxtextsize = 16
+			uitextsizeconstraint.mintextsize = 16
+
+			currentvalue.name = "currentvalue"
+			currentvalue.parent = slider
+			currentvalue.backgroundcolor3 = color3.fromrgb(255, 255, 255)
+			currentvalue.backgroundtransparency = 1.000
+			currentvalue.position = udim2.new(0.837579787, 0, 0.125, 0)
+			currentvalue.size = udim2.new(0, 41, 0, 20)
+			currentvalue.font = enum.font.sourcesans
+			currentvalue.text = "0"
+			currentvalue.textcolor3 = color3.fromrgb(236, 236, 236)
+			currentvalue.textscaled = true
+			currentvalue.textsize = 14.000
+			currentvalue.textwrapped = true
+			currentvalue.textxalignment = enum.textxalignment.right
+
+			uitextsizeconstraint_2.parent = currentvalue
+			uitextsizeconstraint_2.maxtextsize = 16
+			uitextsizeconstraint_2.mintextsize = 16
+
+			bar.name = "bar"
+			bar.parent = slider
+			bar.backgroundcolor3 = color3.fromrgb(63, 63, 63)
+			bar.position = udim2.new(0.0307127349, 0, 0.675000012, 0)
+			bar.size = udim2.new(0, 296, 0, 6)
+
+			uicorner.cornerradius = udim.new(1, 0)
+			uicorner.parent = bar
+
+			slide.name = "slide"
+			slide.parent = bar
+			slide.backgroundcolor3 = color3.fromrgb(236, 236, 236)
+			slide.position = udim2.new(0, 0, 0.17499797, 0)
+			slide.size = udim2.new(0, 0, 0, 4)
+
+			uicorner_2.cornerradius = udim.new(1, 0)
+			uicorner_2.parent = slide
+
+			uicorner_3.cornerradius = udim.new(0, 5)
+			uicorner_3.parent = slider
+
+			local function move(input)
+				local xsize = math.clamp((input.position.x - bar.absoluteposition.x) / bar.absolutesize.x, 0, 1)
+				local increment = inc and (max / ((max - min) / (inc * 4))) or (max >= 50 and max / ((max - min) / 4)) or  (max >= 25 and max / ((max - min) / 2)) or (max / (max - min))
+				local sizerounded = udim2.new((math.round(xsize * ((max / increment) * 4)) / ((max / increment) * 4)), 0, 0.700, 0)
+				slide:tweensize(sizerounded, enum.easingdirection.out, enum.easingstyle.quad, .1, true)
+
+				local val = math.round((((sizerounded.x.scale * max) / max) * (max - min) + min) * 20) / 20
+				currentvalue.text = tostring(val)
+				pcall(callback, tonumber(val))
+			end
+
+			bar.inputbegan:connect(
+				function(input)
+					if input.userinputtype == enum.userinputtype.mousebutton1 then
+						dragging = true
+					end
+				end
+			)
+			bar.inputended:connect(
+				function(input)
+					if input.userinputtype == enum.userinputtype.mousebutton1 then
+						dragging = false
+					end
+				end
+			)
+			game:getservice("userinputservice").inputchanged:connect(
+			function(input)
+				if dragging and input.userinputtype == enum.userinputtype.mousemovement then
+					move(input)
+				end
+			end
+			)
+		end
+
+		function tabhandler:textbox(text, numonly, dissapear, callback)
+			local textbox = instance.new("textbutton")
+			local uicorner = instance.new("uicorner")
+			local title = instance.new("textlabel")
+			local uitextsizeconstraint = instance.new("uitextsizeconstraint")
+			local thetextbox = instance.new("textbox")
+			local uicorner_2 = instance.new("uicorner")
+			local uitextsizeconstraint_2 = instance.new("uitextsizeconstraint")
+
+			textbox.name = "textbox"
+			textbox.parent = elements
+			textbox.backgroundcolor3 = color3.fromrgb(37, 37, 37)
+			textbox.position = udim2.new(-0.133136094, 0, 0, 0)
+			textbox.size = udim2.new(0, 314, 0, 40)
+			textbox.autobuttoncolor = false
+			textbox.font = enum.font.gotham
+			textbox.text = ""
+			textbox.textcolor3 = color3.fromrgb(236, 236, 236)
+			textbox.textscaled = true
+			textbox.textsize = 14.000
+			textbox.textwrapped = true
+			textbox.clipsdescendants = true
+
+			uicorner.cornerradius = udim.new(0, 5)
+			uicorner.parent = textbox
+
+			title.name = "title"
+			title.parent = textbox
+			title.backgroundcolor3 = color3.fromrgb(255, 255, 255)
+			title.backgroundtransparency = 1.000
+			title.position = udim2.new(0.0382165611, 0, 0.075000003, 0)
+			title.size = udim2.new(0, 166, 0, 33)
+			title.font = enum.font.gotham
+			title.text = tostring(text)
+			title.textcolor3 = color3.fromrgb(236, 236, 236)
+			title.textscaled = true
+			title.textsize = 14.000
+			title.textwrapped = true
+			title.textxalignment = enum.textxalignment.left
+
+			uitextsizeconstraint.parent = title
+			uitextsizeconstraint.maxtextsize = 14
+			uitextsizeconstraint.mintextsize = 14
+
+			thetextbox.name = "thetextbox"
+			thetextbox.parent = textbox
+			thetextbox.backgroundcolor3 = color3.fromrgb(45, 45, 45)
+			thetextbox.position = udim2.new(0.709165514, 0, 0.125, 0)
+			thetextbox.size = udim2.new(0, 85, 0, 30)
+			thetextbox.font = enum.font.gotham
+			thetextbox.placeholdertext = ". . ."
+			thetextbox.text = ""
+			thetextbox.textcolor3 = color3.fromrgb(236, 236, 236)
+			thetextbox.textscaled = true
+			thetextbox.textsize = 14.000
+			thetextbox.textstrokecolor3 = color3.fromrgb(236, 236, 236)
+			thetextbox.textwrapped = true
+
+			uicorner_2.cornerradius = udim.new(0, 5)
+			uicorner_2.parent = thetextbox
+
+			uitextsizeconstraint_2.parent = thetextbox
+			uitextsizeconstraint_2.maxtextsize = 14
+			uitextsizeconstraint_2.mintextsize = 14
+
+			textbox.mouseenter:connect(function()
+				game:getservice("tweenservice"):create(textbox, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(42, 42, 42)}):play()
+			end)
+	
+			textbox.mouseleave:connect(function()
+				game:getservice("tweenservice"):create(textbox, tweeninfo.new(0.2), {backgroundcolor3 = color3.fromrgb(37, 37, 37)}):play()
+			end)
+
+			textbox.mousebutton1click:connect(function()
+				ripple(textbox)
+				thetextbox:capturefocus()
+			end)
+
+			thetextbox.focuslost:connect(function(idk)
+				if idk then
+					if #thetextbox.text > 0 then
+						pcall(callback, thetextbox.text)
+						if dissapear then
+							thetextbox.text = ""
+						end
+					end
+				end
+			end)
+
+			thetextbox:getpropertychangedsignal("text"):connect(function()
+				if numonly then
+					thetextbox.text = thetextbox.text:gsub("d%+", "")
+				end
+			end)
+		end
+		
+		function tabhandler:label(text)
+			local label = instance.new("textlabel")
+			local uicorner = instance.new("uicorner")
+			local uitextsizeconstraint = instance.new("uitextsizeconstraint")
+
+			label.name = "label"
+			label.parent = elements
+			label.backgroundcolor3 = color3.fromrgb(37, 37, 37)
+			label.size = udim2.new(0, 314, 0, 40)
+			label.font = enum.font.gotham
+			label.textcolor3 = color3.fromrgb(236, 236, 236)
+			label.textscaled = true
+			label.textsize = 14.000
+			label.textwrapped = true
+			label.text = tostring(text)
+
+			uicorner.cornerradius = udim.new(0, 5)
+			uicorner.parent = label
+
+			uitextsizeconstraint.parent = label
+			uitextsizeconstraint.maxtextsize = 14
+			uitextsizeconstraint.mintextsize = 14
+		end
+
+		return tabhandler
+	end
+
+	function windowhandler:toggle()
+		main.visible = not main.visible
+	end
+
+	function windowhandler:load()
+		selectfirsttab()
+	end
+
+	return windowhandler
+end
+return library 
